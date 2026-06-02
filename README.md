@@ -170,24 +170,6 @@ For NPZ format datasets, each file should contain:
 ```
 
 
-
-### Scale Estimation (`scale_estimation.py`)
-
-A one-point RANSAC strategy selects scale candidates and finds inliers. The process includes:
-1. **Global RANSAC**: Sample scale candidates, find consensus, refine via weighted least squares
-2. **Local Optimization**: Iteratively tighten the noise bound and re-estimate with inlier subsets
-3. **Final Refinement**: Weighted least squares on final inlier set
-
-### Rotation & Translation (`irls_sa_cauchy_point.py`)
-
-After scale compensation, rotation and translation are estimated via:
-1. **SA-Cauchy Weight Update**: Cauchy kernel-based robust weighting with simulated annealing temperature schedule
-2. **Two-Stage Refinement**: Moderate filtering → aggressive filtering on high-confidence points
-3. **Translation Refinement**: Iterative weighted least squares for translation with Cauchy weights
-
-
-
-
 ## Acknowledgments
 
 - [TEASER++](https://github.com/MIT-SPARK/TEASER-plusplus) — Truncated least squares Estimation And SEmidefinite Relaxation
