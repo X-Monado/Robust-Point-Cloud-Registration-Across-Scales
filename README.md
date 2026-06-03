@@ -2,7 +2,7 @@
 
 **Point Cloud Registration with Scale Estimation** — A robust point cloud registration framework based on one-point RANSAC and scale-annealing biweight estimation, supporting cross-source and cross-scale scenarios.
 
----
+----
 
 ## Features
 
