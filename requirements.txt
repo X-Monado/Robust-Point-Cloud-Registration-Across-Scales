@@ -4,6 +4,12 @@ open3d>=0.16.0
 matplotlib>=3.5.0
 scipy>=1.7.0
 scikit-learn>=1.0.0
-torch>=1.9.0
-MinkowskiEngine>=0.5.4
 
+# GPU acceleration (optional — enables --use_gpu flag for 9-13x speedup on large datasets)
+# Requires CUDA-capable GPU. Install from https://pytorch.org/get-started/locally/
+torch>=1.9.0
+
+# FCGF feature extraction (optional — only needed to re-extract FCGF features)
+# Uncomment the following lines to enable FCGF support:
+# MinkowskiEngine>=0.5.4
+# See FCGF_Integration_Guide.md for detailed installation instructions
