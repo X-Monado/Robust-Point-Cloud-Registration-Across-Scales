@@ -1,5 +1,5 @@
 import numpy as np
-from line_vectors import line_vectors
+from .line_vectors import line_vectors
 
 
 def scale_vector(X, Y, bound, length_bound):
@@ -37,9 +37,12 @@ def scale_vector(X, Y, bound, length_bound):
     D_xlv = np.sqrt(np.sum(X_lv**2, axis=0))
     D_ylv = np.sqrt(np.sum(Y_lv**2, axis=0))
     
-    # Length filtering disabled to preserve original behavior
-    # (length_bound parameter is kept for API compatibility but not applied)
-    idx = np.zeros_like(D_xlv, dtype=bool)
+    # Length filtering: discard short line vectors (noise-sensitive)
+    # Short edges have high noise sensitivity in their length ratios
+    if length_bound > 0:
+        idx = (D_xlv <= length_bound) | (D_ylv <= length_bound)
+    else:
+        idx = np.zeros_like(D_xlv, dtype=bool)
     
     D_xlv = D_xlv[~idx]
     D_ylv = D_ylv[~idx]

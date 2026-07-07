@@ -1,5 +1,5 @@
 import numpy as np
-from sa_cauchy_point import sa_cauchy_point
+from .sa_cauchy_point import sa_cauchy_point
 
 
 def refine_translation(X, Y, R_init, t_init, max_iter=50, tol=1e-6):
@@ -32,9 +32,12 @@ def refine_translation(X, Y, R_init, t_init, max_iter=50, tol=1e-6):
     distances = np.sqrt(np.sum(residuals ** 2, axis=0))
     
     # Initialize weights based on Cauchy distribution
-    # Note: Original implementation uses scaled median (not standard MAD)
-    # to maintain consistency with reported experimental results
-    scale = np.median(distances) * 1.4826  # MAD-based scale estimate
+    # Standard MAD (Median Absolute Deviation) scale estimate
+    # MAD = 1.4826 * median(|d - median(d)|)
+    # This provides 50% breakdown point, robust to outliers
+    median_d = np.median(distances)
+    mad = np.median(np.abs(distances - median_d))
+    scale = 1.4826 * mad
     if scale < 1e-8:
         scale = 0.01
     
